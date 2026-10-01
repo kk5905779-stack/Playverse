@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLAYVERSE — Play something amazing</title>
+<style>
+:root{--bg:#0d1020;--panel:#171b31;--panel2:#202642;--text:#f7f7ff;--muted:#aab0cc;--pink:#ff65b5;--blue:#6d9cff;--purple:#a77bff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#29204c 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0d1020eF;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff18}
+.nav{max-width:1200px;margin:auto;padding:15px 22px;display:flex;align-items:center;gap:18px}.logo{font-size:23px;font-weight:950;letter-spacing:1px;white-space:nowrap}.logo span{color:var(--pink)}.nav small{color:var(--muted);font-weight:600}
+main{max-width:1200px;margin:auto;padding:28px 22px 70px}
+.hero{padding:34px;border-radius:25px;background:linear-gradient(115deg,#47266f,#253b78 65%,#1d5c76);position:relative;overflow:hidden;box-shadow:0 15px 50px #0005}
+.hero:after{content:"🎮";position:absolute;right:6%;top:10px;font-size:130px;opacity:.16;transform:rotate(-16deg)}
+.hero h1{font-size:clamp(32px,6vw,54px);margin:0 0 8px;line-height:1.05}.hero p{color:#e5e4ff;max-width:560px;margin:0 0 22px}
+.searchrow{display:flex;gap:10px;max-width:620px;position:relative;z-index:1}.searchrow input{flex:1;min-width:0;padding:14px 17px;border:1px solid #ffffff30;border-radius:13px;background:#11152a;color:white;font-size:15px;outline:none}.searchrow input:focus{border-color:var(--pink)}
+button,.pill{border:0;cursor:pointer;font:inherit}.searchrow button,.primary{background:linear-gradient(100deg,var(--pink),var(--purple));color:white;padding:13px 20px;border-radius:13px;font-weight:800}
+.categories{display:flex;gap:9px;overflow:auto;padding:22px 0 8px}.pill{white-space:nowrap;padding:9px 15px;border-radius:30px;background:var(--panel);color:var(--muted);border:1px solid #ffffff12}.pill.active,.pill:hover{background:#533a80;color:white;border-color:#a77bff}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:25px 0 14px}.sectionhead h2{font-size:21px;margin:0}.sectionhead span{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+.game{background:var(--panel);border:1px solid #ffffff12;border-radius:17px;overflow:hidden;transition:.18s;min-width:0}.game:hover{transform:translateY(-4px);border-color:#a77bff88;box-shadow:0 10px 30px #0004}
+.thumb{height:125px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,var(--c1),var(--c2));position:relative;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb .gameicon{width:82px;height:82px;border-radius:23px;display:grid;place-items:center;font-size:48px;background:linear-gradient(145deg,#ffffff45,#ffffff10);border:1px solid #ffffff55;box-shadow:0 8px 22px #0004;position:relative;z-index:1;text-shadow:0 3px 8px #0005}.thumb:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0002,transparent)}
+.gameinfo{padding:12px}.gameinfo h3{font-size:14px;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gameinfo p{font-size:12px;color:var(--muted);margin:0 0 11px}
+.play{width:100%;border-radius:9px;padding:9px;background:#303958;color:white;font-size:13px;font-weight:800}.play:hover{background:linear-gradient(100deg,var(--pink),var(--purple))}
+.empty{padding:35px;text-align:center;color:var(--muted);display:none}
+footer{border-top:1px solid #ffffff15;color:var(--muted);padding:25px;text-align:center;font-size:13px}
+.modal{position:fixed;inset:0;background:#050611ed;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.playerbox{width:min(1050px,100%);background:var(--panel);border:1px solid #ffffff24;border-radius:20px;overflow:hidden;box-shadow:0 20px 80px #0009}.playerhead{display:flex;align-items:center;gap:12px;padding:13px 16px}.playerhead h2{font-size:17px;margin:0;flex:1}.close{background:#303958;color:white;border-radius:9px;padding:9px 13px}.screen{background:#080a13;min-height:360px;display:grid;place-items:center;position:relative}.screen iframe{width:100%;height:min(68vh,650px);border:0;background:#080a13}.screen .notice{max-width:520px;text-align:center;padding:30px;color:var(--muted)}.notice strong{display:block;color:white;font-size:21px;margin-bottom:10px}.playerfoot{padding:12px 16px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:10px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:560px){.nav{padding:13px 16px}.nav small{display:none}main{padding:20px 14px 50px}.hero{padding:25px 20px}.hero:after{font-size:80px;right:2%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.thumb{height:105px}.playerfoot{display:block}.screen{min-height:280px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">PLAY<span>VERSE</span> ✦</div><small>YOUR NEXT GAME IS WAITING</small></div></header>
+<main>
+<section class="hero"><h1>Play something<br>AMAZING.</h1><p>Discover fun browser games, explore new worlds and find your next favorite.</p><div class="searchrow"><input id="search" type="search" placeholder="Search games..." aria-label="Search games"><button id="searchBtn">Search</button></div></section>
+<div class="categories" id="categories"></div>
+<div class="sectionhead"><h2 id="sectionTitle">All games</h2><span id="count"></span></div>
+<div class="grid" id="games"></div><div class="empty" id="empty">No games found. Try another search.</div>
+</main>
+<footer>PLAYVERSE · Made by Erik<br>Only add games you created or are authorized to embed or distribute.</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="playerTitle"><div class="playerbox"><div class="playerhead"><h2 id="playerTitle">Game</h2><button class="close" id="close">✕ Close</button></div><div class="screen" id="screen"></div><div class="playerfoot"><span id="playerCategory"></span><button class="close" id="fullscreen">⛶ Fullscreen</button></div></div></div>
+<script>
+// Add a permitted HTML5 game URL in the url field to make its PLAY button load the game.
+// Leave url empty for a placeholder. Do not use copyrighted game URLs without permission.
+const games = [
+["Brawl Stars","Action","⭐","#ed5b83","#8f3b80",""],
+["Doki Doki Literature Club","Anime / Story","🌸","#f68fb8","#a94d83",""],
+["Subway Surfers","Arcade","🚇","#ffb347","#ed6b4d",""],
+["Geometry Dash","Rhythm","🔷","#42c9cf","#3b63b8",""],
+["Among Us","Multiplayer","🚀","#ec667c","#713f91",""],
+["Friday Night Funkin'","Music","🎤","#4d8bdf","#7746a8",""],
+["Cookie Clicker","Idle","🍪","#b77b50","#75452f",""],
+["Slither.io","Multiplayer","🐍","#69c77a","#287e83",""],
+["Agar.io","Multiplayer","🟣","#63a4dc","#5d58ad",""],
+["2048","Puzzle","🔢","#e9b85d","#b87b42",""],
+["Tetris","Puzzle","🧩","#5c8df0","#814fc5",""],
+["Minecraft","Sandbox","⛏️","#79b86a","#447d59",""],
+["Roblox","Multiplayer","🟥","#68758c","#333d56",""],
+["Plants vs. Zombies","Strategy","🌻","#85c96e","#347b55",""],
+["Angry Birds","Arcade","🐦","#e86a55","#b43d51",""],
+["Cut the Rope","Puzzle","🍬","#74d7a1","#2e8e91",""],
+["Fireboy and Watergirl","Adventure","🔥","#f08b55","#477ed1",""],
+["Moto X3M","Racing","🏍️","#f4b84e","#cb684b",""],
+["Paper.io 2","Arcade","🖍️","#67c5d0","#416dbb",""],
+["Shell Shockers","Action","🥚","#e4bd58","#c76d4b",""],
+["Little Alchemy 2","Puzzle","⚗️","#8e9be8","#5964a9",""],
+["Super Mario","Platformer","🍄","#ee665b","#5682c9",""],
+["Granny","Horror","🏚️","#73768c","#34394e",""],
+["Baldi's Basics","Horror","📏","#83bc72","#447f67",""],
+["1v1.LOL","Action","🎯","#6b9fe0","#4d59a4",""],
+["Dress Up Games","Fashion","👗","#f18ac1","#a56ac9",""],
+["Papa's Pizzeria","Cooking","🍕","#eaa45b","#bb5c4d",""],
+["Duck Life","Adventure","🦆","#f1cb68","#65a978",""],
+["Friday the 13th","Horror","🌙","#70748b","#36384d",""],
+["Chess","Board","♟️","#a9b5c7","#56627e",""]
+];
+const categories=["All","Action","Adventure","Anime / Story","Arcade","Board","Cooking","Fashion","Horror","Idle","Multiplayer","Music","Platformer","Puzzle","Racing","Rhythm","Sandbox","Strategy"];
+let active="All", current=null;
+const $=id=>document.getElementById(id);
+function renderCategories(){
+ $("categories").innerHTML=categories.map(c=>`<button class="pill ${active===c?'active':''}" data-cat="${c}">${c}</button>`).join("");
+ $("categories").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{active=b.dataset.cat;renderCategories();renderGames()}));
+}
+function renderGames(){
+ const q=$("search").value.trim().toLowerCase();
+ const filtered=games.filter(g=>(active==="All"||g[1]===active)&&g[0].toLowerCase().includes(q));
+ $("sectionTitle").textContent=active==="All"?"All games":active+" games";
+ $("count").textContent=filtered.length+" games";
+ $("games").innerHTML=filtered.map(g=>{const i=games.indexOf(g);return `<article class="game"><div class="thumb" style="--c1:${g[3]};--c2:${g[4]}"><div class="gameicon" aria-label="${g[0]} game icon">${g[2]}</div></div><div class="gameinfo"><h3 title="${g[0]}">${g[0]}</h3><p>${g[1]}</p><button class="play" data-game="${i}">▶ PLAY</button></div></article>`}).join("");
+ $("empty").style.display=filtered.length?"none":"block";
+ $("games").querySelectorAll("[data-game]").forEach(b=>b.addEventListener("click",()=>openGame(Number(b.dataset.game))));
+}
+function openGame(i){
+ current=games[i];$("playerTitle").textContent=current[0];$("playerCategory").textContent=current[1];
+ const screen=$("screen");screen.innerHTML="";
+ if(current[5]){
+  const frame=document.createElement("iframe");frame.src=current[5];frame.title=current[0];frame.allow="fullscreen; autoplay; gamepad";frame.allowFullscreen=true;screen.appendChild(frame);
+ }else{
+  const notice=document.createElement("div");notice.className="notice";notice.innerHTML=`<strong>${current[2]} ${current[0]}</strong>This game slot is ready, but no authorized browser-game URL has been added yet.<br><br>To activate it, add an HTML5 game URL you have permission to embed in the <code>games</code> list in this website's code.`;screen.appendChild(notice);
+ }
+ $("modal").classList.add("open");document.body.style.overflow="hidden";
+}
+function closeGame(){$("modal").classList.remove("open");$("screen").innerHTML="";document.body.style.overflow="";}
+$("close").addEventListener("click",closeGame);$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeGame()});
+$("fullscreen").addEventListener("click",()=>{const f=$("screen").querySelector("iframe");if(f&&f.requestFullscreen)f.requestFullscreen();else $("screen").requestFullscreen?.()});
+$("search").addEventListener("input",renderGames);$("searchBtn").addEventListener("click",renderGames);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeGame()});
+renderCategories();renderGames();
+</script>
+</body></html>
